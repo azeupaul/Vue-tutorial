@@ -1,0 +1,54 @@
+<doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Exercise tasks</title>
+    </head>
+    <body>
+        <div id="root">
+            <h2>All tasks</h2>
+            <ul>
+                <li v-for="task in tasks">
+                    <input type="checkbox" name="name" :checked="task.completed" @click="toggleCompleted(task)"> {{ task.description }}
+                </li>
+            </ul>
+            <h2>Incompleted tasks</h2>
+            <ul>
+                <li v-for="task in incompletedTasks" v-text="task.description"></li>
+            </ul>
+            <h2>Completed tasks</h2>
+            <ul>
+                <li v-for="task in completedTasks" v-text="task.description"></li>
+            </ul>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"></script>
+        <script type="text/javascript">
+            let app = new Vue({
+                el: "#root",
+                data: {
+                    tasks: [
+                        { description: "Go to the store", completed: true },
+                        { description: "Finish the screencast", completed: true },
+                        { description: "Make donation", completed: false },
+                        { description: "Clear inbox", completed: false },
+                        { description: "Make dinner", completed: true },
+                        { description: "Clean room", completed: false },
+                    ],
+                },
+                computed: {
+                    incompletedTasks(){
+                        return this.tasks.filter(task => !task.completed)
+                    },
+                    completedTasks(){
+                        return this.tasks.filter(task => task.completed)
+                    },
+                },
+                methods: {
+                    toggleCompleted(task){
+                        task.completed = !task.completed
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
